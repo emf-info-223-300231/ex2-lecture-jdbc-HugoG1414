@@ -80,7 +80,7 @@ public class DbWorker implements DbWorkerItf {
                 listePersonnes.add(p);
             }
         } catch (SQLException s) {
-
+            throw new MyDBException(SystemLib.getFullMethodName(), s.getMessage());
         }
         return listePersonnes;
     }
@@ -89,24 +89,20 @@ public class DbWorker implements DbWorkerItf {
     public Personne precedentPersonne() throws MyDBException {
         lirePersonnes();
         Personne p = new Personne();
-        if(index > 0){
+        if (index > 0) {
             index--;
-            p = listePersonnes.get(index);
         }
-        else{
-            p = listePersonnes.get(index);
-        }
+        p = listePersonnes.get(index);
         return p;
     }
 
     @Override
     public Personne suivantPersonne() throws MyDBException {
         Personne p = new Personne();
-        if(index < listePersonnes.size()-1){
+        if (index < listePersonnes.size() - 1) {
             index++;
             p = listePersonnes.get(index);
-        }
-        else{
+        } else {
             p = listePersonnes.get(index);
         }
         return p;
